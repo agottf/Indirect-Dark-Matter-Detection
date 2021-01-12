@@ -1,0 +1,241 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8812,        231]
+NotebookOptionsPosition[      7313,        200]
+NotebookOutlinePosition[      7648,        215]
+CellTagsIndexPosition[      7605,        212]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+The chi - square  statistic follows the following distribution (see \
+Wikipedia) :\
+\>", "Text",
+ CellChangeTimes->{{3.819476290555231*^9, 3.819476305552944*^9}, {
+   3.819476544946924*^9, 3.819476598249662*^9}, 
+   3.819483712411277*^9},ExpressionUUID->"2811d511-fb9a-45bf-a8a1-\
+b50fd3d60dd6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"chisquare", "[", 
+   RowBox[{"k_", ",", "x_"}], "]"}], "=", 
+  RowBox[{
+   RowBox[{"1", "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"2", "^", 
+       RowBox[{"(", 
+        RowBox[{"k", "/", "2"}], ")"}]}], "*", 
+      RowBox[{"Gamma", "[", 
+       RowBox[{"k", "/", "2"}], "]"}]}], ")"}]}], 
+   RowBox[{"x", "^", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"k", "/", "2"}], "-", "1"}], ")"}]}], "*", 
+   RowBox[{"Exp", "[", 
+    RowBox[{
+     RowBox[{"-", "x"}], "/", "2"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.819476307129508*^9, 3.819476394310706*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"859779eb-8456-49e3-8dc5-c7f7cf3dbe34"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["2", 
+    RowBox[{
+     RowBox[{"-", "k"}], "/", "2"}]], " ", 
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", "x"}], "/", "2"}]], " ", 
+   SuperscriptBox["x", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", 
+     FractionBox["k", "2"]}]]}], 
+  RowBox[{"Gamma", "[", 
+   FractionBox["k", "2"], "]"}]]], "Output",
+ CellChangeTimes->{3.819476395583006*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"3d8b8bbc-b392-4cb1-b05f-6eaeec0de486"]
+}, Open  ]],
+
+Cell["\<\
+k is the number of degrees of freedom, which in our case is the number of \
+fitted parameters. We are fitting one parameter, < \[Sigma]v >, for each \
+value of mass, so in our case k=1.\
+\>", "Text",
+ CellChangeTimes->{{3.819476398535204*^9, 3.819476537227666*^9}, {
+   3.8194766629527473`*^9, 3.819476682863504*^9}, 3.81947688307793*^9, {
+   3.819478653513195*^9, 
+   3.819478675799678*^9}},ExpressionUUID->"42ca9555-0898-4c7c-bda9-\
+ae007b2a6a07"],
+
+Cell["\<\
+Say we discover dark matter.  Wilks' theorem tells us that 2 \[CapitalDelta] \
+ln L (which is a function of  < \[Sigma]v >) follows the chi - square \
+distribution, so if I want to find what value of 2 \[CapitalDelta] ln L \
+corresponds to 95% exclusion, I can integrate the chi-square distribution and \
+find where that integral = 0.95\.00\
+\>", "Text",
+ CellChangeTimes->{{3.819478754079067*^9, 3.819478773606072*^9}, 
+   3.8194807509829197`*^9, {3.8194807901487703`*^9, 3.819480876355496*^9}, {
+   3.81948243993327*^9, 3.819482546274271*^9}, {3.819482623888747*^9, 
+   3.819482774140287*^9}, {3.8194828319865*^9, 3.819482901488882*^9}, {
+   3.819482964223503*^9, 3.819482982822383*^9}, {3.8194830600690002`*^9, 
+   3.819483060452641*^9}, 
+   3.819483153993534*^9},ExpressionUUID->"8fdeb62d-7d61-43f8-be97-\
+4b47ce1363af"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Integrate", "[", 
+     RowBox[{
+      RowBox[{"chisquare", "[", 
+       RowBox[{"1", ",", "x"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "0", ",", "x0"}], "}"}]}], "]"}], "\[Equal]", 
+    ".95"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x0", ",", ".5"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.819482905081365*^9, 3.819482921616246*^9}, {
+   3.819482986480048*^9, 3.81948300615*^9}, 3.819483065214307*^9},
+ CellLabel->"In[12]:=",ExpressionUUID->"2e35367d-e5cf-4552-8cfd-3126f9d93032"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"x0", "\[Rule]", "3.841458820694123`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.819482922260963*^9, {3.819482998171693*^9, 3.819483007503481*^9}, 
+   3.81948306703342*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"d91094b3-fd7c-4029-826d-66953fd9a09a"]
+}, Open  ]],
+
+Cell["\<\
+So values of < \[Sigma]v > that give 2 \[CapitalDelta] ln L > 3.84 are \
+excluded at 95 % CL. These will be values of < \[Sigma]v > that are either \
+too big or too small relative to the actual value.\
+\>", "Text",
+ CellChangeTimes->{{3.8194830691646357`*^9, 
+  3.819483184208899*^9}},ExpressionUUID->"efdbf91e-60e2-4c4d-b533-\
+e7f4b975b941"],
+
+Cell["\<\
+However, we have not discovered dark matter. Instead we are just setting an \
+upper limit on the cross section. So to find the values that are excluded at \
+95 % CL, we have to find where the previous integral is actually equal to 0.90\
+\>", "Text",
+ CellChangeTimes->{{3.819483014726132*^9, 3.819483023773728*^9}, {
+  3.8194831858651323`*^9, 3.819483206688637*^9}, {3.819483248535671*^9, 
+  3.819483258280119*^9}, {3.819483299870734*^9, 3.8194833766042643`*^9}, {
+  3.81948343751512*^9, 3.819483469105626*^9}, {3.819483606310753*^9, 
+  3.819483614844232*^9}, {3.81948375644246*^9, 3.819483758105933*^9}, {
+  3.819483841515684*^9, 
+  3.8194838428279343`*^9}},ExpressionUUID->"aca93f53-6864-4a9b-af30-\
+5c8c1d496efd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Integrate", "[", 
+     RowBox[{
+      RowBox[{"chisquare", "[", 
+       RowBox[{"1", ",", "x"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "0", ",", "x0"}], "}"}]}], "]"}], "\[Equal]", 
+    ".90"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x0", ",", ".5"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.819483484489943*^9, 3.8194834852014847`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"ac89bb7b-10ee-4486-90e2-414212fc15fe"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"x0", "\[Rule]", "2.705543454095414`"}], "}"}]], "Output",
+ CellChangeTimes->{3.819483485777671*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"6c378da4-30d2-441a-b815-4070be463a61"]
+}, Open  ]],
+
+Cell["\<\
+Which is the number you are familiar with. The idea here is that we can only \
+exclude values of < \[Sigma]v > that are too large, not too small as before, \
+so the \[OpenCurlyDoubleQuote]missing\[CloseCurlyDoubleQuote] 5% comes from \
+the fact that the low values are now allowed. \
+\>", "Text",
+ CellChangeTimes->{{3.8194834882255163`*^9, 3.8194835559873543`*^9}, {
+  3.8194836505017643`*^9, 3.819483670511067*^9}, {3.8194838458356867`*^9, 
+  3.819483881226954*^9}, {3.8194839181059732`*^9, 
+  3.8194839218818398`*^9}},ExpressionUUID->"94fae0ae-523b-49a9-9065-\
+19546b59a60e"],
+
+Cell["\<\
+I' m hiding alot in this discussion -- mainly how this is all ultimately \
+derived from Gaussian statistics, making the whole one - sided limit argument \
+a bit more sensible, but that is talked about a bit in the review I sent you, \
+I think...\
+\>", "Text",
+ CellChangeTimes->{{3.8194780623745604`*^9, 3.8194780865648212`*^9}, {
+  3.8194840659173613`*^9, 3.819484110533053*^9}, {3.819484145364464*^9, 
+  3.8194841700835752`*^9}, {3.81948420113557*^9, 
+  3.819484209570443*^9}},ExpressionUUID->"26f2771c-dda3-434f-b8ac-\
+2548b79be957"]
+},
+WindowSize->{808, 911},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 305, 7, 35, "Text",ExpressionUUID->"2811d511-fb9a-45bf-a8a1-b50fd3d60dd6"],
+Cell[CellGroupData[{
+Cell[888, 31, 685, 21, 30, "Input",ExpressionUUID->"859779eb-8456-49e3-8dc5-c7f7cf3dbe34"],
+Cell[1576, 54, 506, 16, 70, "Output",ExpressionUUID->"3d8b8bbc-b392-4cb1-b05f-6eaeec0de486"]
+}, Open  ]],
+Cell[2097, 73, 459, 9, 58, "Text",ExpressionUUID->"42ca9555-0898-4c7c-bda9-ae007b2a6a07"],
+Cell[2559, 84, 834, 14, 81, "Text",ExpressionUUID->"8fdeb62d-7d61-43f8-be97-4b47ce1363af"],
+Cell[CellGroupData[{
+Cell[3418, 102, 584, 15, 30, "Input",ExpressionUUID->"2e35367d-e5cf-4552-8cfd-3126f9d93032"],
+Cell[4005, 119, 292, 6, 34, "Output",ExpressionUUID->"d91094b3-fd7c-4029-826d-66953fd9a09a"]
+}, Open  ]],
+Cell[4312, 128, 352, 7, 58, "Text",ExpressionUUID->"efdbf91e-60e2-4c4d-b533-e7f4b975b941"],
+Cell[4667, 137, 726, 12, 81, "Text",ExpressionUUID->"aca93f53-6864-4a9b-af30-5c8c1d496efd"],
+Cell[CellGroupData[{
+Cell[5418, 153, 518, 14, 30, "Input",ExpressionUUID->"ac89bb7b-10ee-4486-90e2-414212fc15fe"],
+Cell[5939, 169, 218, 4, 34, "Output",ExpressionUUID->"6c378da4-30d2-441a-b815-4070be463a61"]
+}, Open  ]],
+Cell[6172, 176, 588, 10, 58, "Text",ExpressionUUID->"94fae0ae-523b-49a9-9065-19546b59a60e"],
+Cell[6763, 188, 546, 10, 81, "Text",ExpressionUUID->"26f2771c-dda3-434f-b8ac-2548b79be957"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
