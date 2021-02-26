@@ -35,7 +35,7 @@ np.seterr(divide='ignore', invalid='ignore')
 
 # Analyze Draco with 100 GeV b-bbar spectrum.
 likefile = 'http://www-glast.stanford.edu/pub_data/1048/like_draco.txt'
-specfile = 'specfile.txt'
+specfile = '10000'
 # J factor of Draco (*NO UNCERTAINTY INCLUDED*)
 jfactor = 10 ** 18.83
 
