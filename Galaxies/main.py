@@ -37,11 +37,11 @@ np.seterr(divide='ignore', invalid='ignore')
 
 
 # Define the main function that computes the limit on sigma*v given a dark matter mass
-def svlimit(specfile):
+def svlimit(specfile, galaxy):
     # Analyze Draco with some GeV b-bbar spectrum.
-    likefile = galaxies[0,0]
+    likefile = galaxies[galaxy,0]
     # J factor of Draco (*NO UNCERTAINTY INCLUDED*)
-    jfactor = 10 ** float(galaxies[0,1])
+    jfactor = 10 ** float(galaxies[galaxy,1])
 
     # Spectral file created assuming J=10^18 GeV^2/cm^5, sigmav=1e-25 cm^3/s
     j0 = 1e18
@@ -92,9 +92,6 @@ def svlimit(specfile):
     return (limit)
 
 
-# Define list of sigma*v vs dark matter mass
-svlist = np.array([])
-mdmlist = np.array([])
 
 # Make a list of likelihood files for each galaxy with its associated J-factor and uncertainty
 galaxies = np.array([("http://www-glast.stanford.edu/pub_data/1048/like_bootes_I.txt", 18.8, .22),
@@ -116,19 +113,37 @@ galaxies = np.array([("http://www-glast.stanford.edu/pub_data/1048/like_bootes_I
 # Where the spectrum files are located
 directory = os.fsencode("/Users/austingottfredson/Indirect-Dark-Matter-Detection/Galaxies/")
 
+
+# Define list of sigma*v vs dark matter mass
+svlist = np.array([])
+mdmlist = np.array([])
+svlist1 = np.array([])
+mdmlist1 = np.array([])
+svlist2 = np.array([])
+mdmlist2 = np.array([])
+
 # Make the list of sigma*v and dark matter mass
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
     if filename.endswith(".txt"):
-        svlist = np.append(svlist, [svlimit(filename)], axis=0)
-        mdmlist = np.append(mdmlist, float(filename.removesuffix(".txt")))
+        svlist1 = np.append(svlist1, [svlimit(filename, 1)], axis=0)
+        mdmlist1 = np.append(mdmlist1, float(filename.removesuffix(".txt")))
         continue
     else:
         continue
-# print(svlist)
-# print(mdmlist)
 
-plt.loglog(mdmlist, svlist, 'ro')
+for file in os.listdir(directory):
+    filename = os.fsdecode(file)
+    if filename.endswith(".txt"):
+        svlist2 = np.append(svlist2, [svlimit(filename, 4)], axis=0)
+        mdmlist2 = np.append(mdmlist2, float(filename.removesuffix(".txt")))
+        continue
+    else:
+        continue
+
+plt.loglog(mdmlist1, svlist1, 'ro', label='Canes Venatici II')
+plt.loglog(mdmlist2, svlist2, 'bo', label='Draco')
+plt.legend()
 plt.xlabel("DM Mass (GeV/c^2)")
 plt.ylabel("sigma*v (cm^3 s^-1)")
 plt.show()
